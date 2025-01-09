@@ -20,8 +20,9 @@ data['Distance'] = data['Distance'].astype(float)
 #try in the future with og data: data(columns="select columns wanted")
 
 # make monthly distance data
-monthly = data.groupby(['Year', 'Month_name'])['Distance'].sum().reset_index()
-monthly = monthly.sort_values(['Year', 'Month_name'])
+monthly = data.groupby(['Year', 'Month_int'])['Distance'].sum().reset_index()
+monthly = monthly.sort_values(['Year', 'Month_int'])
+monthly['Month_name'] = data['Month_int'].apply(lambda x: calendar.month_name[x])
 
 
 with st.sidebar:
