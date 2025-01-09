@@ -6,7 +6,7 @@ import calendar
 
 # page configuration
 st.set_page_config(page_title="Calvin's Running Dashboard", 
-                   page_icon=":runner:", 
+                   page_icon="🏃", 
                    layout="centered")
 
 alt.themes.enable("dark")
@@ -16,6 +16,7 @@ data = pd.read_csv('data/simple_data.csv')
 data['Year'] = data['Date'].str[:4].astype(int)
 data['Month_int'] = data['Date'].str[5:7].astype(int)
 data['Month_name'] = data['Month_int'].apply(lambda x: calendar.month_name[x])
+data['Distance'] = data['Distance'].astype(float)
 #try in the future with og data: data(columns="select columns wanted")
 
 # make monthly distance data
@@ -23,7 +24,7 @@ monthly = data.groupby(['Year', 'Month_name'])['Distance'].sum().reset_index()
 
 
 with st.sidebar:
-    st.title(":runner:" + "Calvin's Running Dashboard")
+    st.title("🏃 Calvin's Running Dashboard")
 
     years = list(data['Year'].unique())
 
@@ -61,3 +62,8 @@ col = st.columns(1)
 with col[0]:
     heatmap = make_heatmap(monthly, 'Year', 'Month_name', 'Distance', selected_color_theme)
     st.altair_chart(heatmap, use_container_width=True)
+
+
+
+if __name__ == "__main__": #only run if file is executed, if imported it is ignored
+    print(monthly)
