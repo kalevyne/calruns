@@ -22,7 +22,7 @@ data['Distance'] = data['Distance'].astype(float)
 # make monthly distance data
 monthly = data.groupby(['Year', 'Month_int'])['Distance'].sum().reset_index()
 monthly = monthly.sort_values(['Year', 'Month_int'])
-monthly['Month_name'] = data['Month_int'].apply(lambda x: calendar.month_name[x])
+monthly['Month_name'] = monthly['Month_int'].apply(lambda x: calendar.month_name[x])
 
 
 with st.sidebar:
