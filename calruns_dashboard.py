@@ -21,6 +21,7 @@ data['Distance'] = data['Distance'].astype(float)
 
 # make monthly distance data
 monthly = data.groupby(['Year', 'Month_name'])['Distance'].sum().reset_index()
+monthly = monthly.sort_values(['Year', 'Month'])
 
 
 with st.sidebar:
